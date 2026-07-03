@@ -3,7 +3,7 @@
 This is how I installed and configured an Aliexpress (genuine?) CRTouch on my Ender 3 running Klipper on a Raspberry Pi 3b+, on a v1.1.4 board, without any extra PCBs, or using any Pi GPIO pins by soldering a bit :)
 This is not a perfect guide, more like a build log, so consider that while looking at all the unfocused pictures.
 
-![extruder image](/1. How I installed a CRTouch on a 8 bit Ender 3 board/images/front_printer.jpg)
+![extruder image](1. How I installed a CRTouch on a 8 bit Ender 3 board/images/front_printer.jpg)
 Googly eyes not included.
 
 ### Components list
