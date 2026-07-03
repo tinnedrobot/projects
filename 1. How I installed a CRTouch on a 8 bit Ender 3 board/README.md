@@ -3,7 +3,7 @@
 This is how I installed and configured an Aliexpress (genuine?) CRTouch on my Ender 3 running Klipper on a Raspberry Pi 3b+, on a v1.1.4 board, without any extra PCBs, or using any Pi GPIO pins by soldering a bit :)
 This is not a perfect guide, more like a build log, so consider that while looking at all the unfocused pictures.
 
-![extruder image]{/1. How I installed a CRTouch on a 8 bit Ender 3 board/images/front_printer.jpg}
+![extruder image](/1. How I installed a CRTouch on a 8 bit Ender 3 board/images/front_printer.jpg)
 Googly eyes not included.
 
 ### Components list
@@ -16,7 +16,7 @@ Googly eyes not included.
 I first mounted the CRTouch to the bracket compatible with my Ender 3, noting that the threads are on the bracket, so the screw head goes on the bottom. Then, I took out the fan shroud, and installed the bracket sandwiched in between, using the new screws which were longer. 
 
 I also passed the wire along the existing loom by removing the mainboard screws on the top, front and bottom, removing the tape and contracting the loom so that the new wire could pass through it. I then made sure that there was sufficient slack on the extruder part, and screwed the bottom and front.
-![image with cable]{/images/side_wiring.jpg}
+![image with cable](/images/side_wiring.jpg)
 ### Wiring
 The CRTouch part has a small 5 pin connector. 
 
@@ -24,12 +24,12 @@ The CRTouch part has a small 5 pin connector.
 
 **If your board is 8 bit, or older (like mine)**: You won't have the plug, but there's tons of ways of wiring this to the board itself.
 I used the wiring diagram from [this website](https://tickets.th3dstudio.com/help-guides/article/crtouch-sensor-pinout-%E2%80%93-sensor-side):
-![wiring for crtouch]{/images/wiring_crtouch.png}
+![wiring for crtouch](/images/wiring_crtouch.png)
 
 I then unscewed and disconnected the Z endstop switch. You could also grab the JST connector from that and use it later, but I didn't want to sacrifice the old parts in case I needed them again. Then, I connected the CRTouch and tested the GND and ZStop GND pins outlined on the diagram with a multimeter to ensure that the polarity was accurate, I associated the respective pins to the colored wires on the connector using the diagram. I then ensured there was enough slack, and I cut the end of the connector at the mainboard end. Then, I stripped a small part of the insulation, and soldered both ZStop GND and ZStop Signal to a 2 pin JST connector I had from another project. I've seen people using regular dupont connectors instead, but I preferred using the real connector since it looks more secured.
-![jst connector on mainboard]{/images/new_jst.jpg}
+![jst connector on mainboard](/images/new_jst.jpg)
 After that, I located the GND, 5V and SERVO Signal wires from the CRTouch, and soldered female dupont connectors to each. By locating the ICSP pins, used for flashing the mainboard, I connected those to my CRTouch using this diagram: (unknown source??)
-![icsp wiring]{/images/wiring_icsp.png}
+![icsp wiring](/images/wiring_icsp.png)
 You can get a female to female dupont connector, cut and solder to the respective CRTouch wires: 
 5V -> 5V 
 GND -> GND
@@ -37,11 +37,11 @@ SERVO Signal -> MOSI.
 Use some heatshrink tubing to protect the soldered connections (I like to use the soldering iron to shrink it, but please don't use the tip!)
 
 After doing this, the CRTouch should be installed properly and it should go up and down twice while the printer boots. LEDs should also turn on. If there's any issues, check the wiring, and use a multimeter to see if your soldered connections are solid. Remember to use some small zip ties to ensure that the excess wire is cleanly managed. 
-![mainboard]{/images/mainboard.jpg}
+![mainboard](/images/mainboard.jpg)
 ### Other options
 If the ISP pins are not available, or if you don't want to use them, there are some other options. First, you can buy a PCB that connects to the screen port and lets you use the spare pin that's on it.
 You can also use a GPIO pin from your rpi, or use the spare pin 29 on the board that is near a capacitor. You can solder a male header pin and use the same female dupont connectors I used. I did that, but puting my soldering iron near that cap was not very nice. (shaky hands!)
-![pin29]{/images/pin29.jpg}
+![pin29](/images/pin29.jpg)
 
 ### Software
 Now, login to Mainsail (or your UI of choice), and I took this moment to update Klipper, Mainsail, Moonraker, etc. I had a ton of updates, since I hadn't done it since I installed Klipper...
@@ -79,7 +79,7 @@ fade_start: 1
 fade_end: 10
 fade_target: 0
 ```
-Also, modify the `[stepper_z]` config to go from `position_endstop: {OLD_ZSTOP_PIN}` to `position_endstop: probe_z_virtualendstop`, so that the CRTouch is used. Always save and restart.
+Also, modify the `[stepper_z]` config to go from `position_endstop: (OLD_ZSTOP_PIN)` to `position_endstop: probe_z_virtualendstop`, so that the CRTouch is used. Always save and restart.
 ### Testing
 Now, use the commands `BLTOUCH_DEBUG COMMAND=pin_up` and `BLTOUCH_DEBUG COMMAND=pin_down` to test it. That should move the probe. Now, level the bed and see if it actually works, or if it crashes on the bed. Be ready to press the `EMERGENCY STOP` button on your UI or the switch on the power supply.
 
